@@ -61,7 +61,7 @@ const posts = [
 1. resettare la classe 'post' da js
 2. caricare div 'post' con ciclo forEach creando un 'template'
 3. creare 'counter' per likes
-4. creare nuova classe css per colore testo
+4. portare btn su JS
 5. creare 'Btn eventListener' per:
     - counter++ su likes
     - colore testo rosso
@@ -71,6 +71,8 @@ const posts = [
 
 // elementi
 const containerEl = document.querySelector('#container');
+
+let counter = 0;
 
 // carico la DIV da JS usando lo scheletro su HTML
 posts.forEach(post => {
@@ -94,10 +96,10 @@ posts.forEach(post => {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                    <a class="like-button  js-like-button" href="#" data-postid="1">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
-                        </a>
+                            </a>
                     </div>
                     <div class="likes__counter">
                         Piace a <b id="like-counter-1" class="js-likes-counter">80</b> persone
@@ -106,7 +108,26 @@ posts.forEach(post => {
             </div>            
         </div>`
 
-    console.log(post);
-    containerEl.innerHTML += template 
-});
+        console.log(post);
+        containerEl.innerHTML += template 
+    });
+    
+/* 
+5. creare 'Btn eventListener' per:
+    - counter++ su likes
+    - colore testo rosso
+    - pushare ID su nuovo array
+*/
 
+
+// Aggiungi un event listener a ciascun pulsante "Mi Piace"
+const likeButtons = document.querySelectorAll('.js-like-button');
+
+likeButtons.forEach(likeButton => {
+    likeButton.addEventListener('click', function() {
+        // Il codice per gestire il click sul pulsante "Mi Piace" va qui
+        likeButton.classList.add('like-button--liked');
+        counter++;
+        console.log('it works');
+    });
+});
