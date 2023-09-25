@@ -126,7 +126,7 @@ const likeButtons = document.querySelectorAll('.js-like-button');
 likeButtons.forEach(likeButton => {
     likeButton.addEventListener('click', function() {
         // Il codice per gestire il click sul pulsante "Mi Piace" va qui
-        likeButton.classList.add('like-button--liked');
+        likeButton.classList.toggle('like-button--liked');
         counter++;
         console.log('it works');
     });
