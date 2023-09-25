@@ -72,8 +72,6 @@ const posts = [
 // elementi
 const containerEl = document.querySelector('#container');
 
-let counter = 0;
-
 // carico la DIV da JS usando lo scheletro su HTML
 posts.forEach(post => {
     const template = `
@@ -123,11 +121,33 @@ posts.forEach(post => {
 // Aggiungi un event listener a ciascun pulsante "Mi Piace"
 const likeButtons = document.querySelectorAll('.js-like-button');
 
+const likedPosts = []; // Array per tenere traccia dei post piaciuti
+
 likeButtons.forEach(likeButton => {
-    likeButton.addEventListener('click', function() {
-        // Il codice per gestire il click sul pulsante "Mi Piace" va qui
+    likeButton.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // gestire il click sul pulsante "Mi Piace"
         likeButton.classList.toggle('like-button--liked');
-        counter++;
-        console.log('it works');
+
+        // Prendo l'ID del post dal pulsante "Mi Piace"
+        const postId = parseInt(likeButton.getAttribute('data-postid'));
+
+        // collego il post corrispondente nell'array "posts"
+        const post = posts.find(post => post.id === postId);
+
+        if (likeButton.classList.contains('like-button--liked')) {
+            // Se il pulsante è cliccato, aggiungi il post ai post piaciuti
+            likedPosts.push(post);
+        } else {
+            // Se il pulsante è cliccato di nuovo (non è più "Mi Piace"), rimuovi il post dai post piaciuti
+            const index = likedPosts.findIndex(likedPost => likedPost.id === postId);
+            if (index !== -1) {
+                likedPosts.splice(index, 1);
+            }
+        }
+
+        console.log('Post piaciuti:', likedPosts);
     });
 });
+
