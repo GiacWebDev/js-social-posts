@@ -55,3 +55,58 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+
+/*
+0. portare su JS classe 'post'
+1. resettare la classe 'post' da js
+2. caricare div 'post' con ciclo forEach creando un 'template'
+3. creare 'counter' per likes
+4. creare nuova classe css per colore testo
+5. creare 'Btn eventListener' per:
+    - counter++ su likes
+    - colore testo rosso
+    - pushare ID su nuovo array
+6. mappare un nuovo array con '.map' per salvare gli id dei post con mi piace
+*/
+
+// elementi
+const containerEl = document.querySelector('#container');
+
+// carico la DIV da JS usando lo scheletro su HTML
+posts.forEach(post => {
+    const template = `
+    <div class="post">
+            <div class="post__header">
+                <div class="post-meta">                    
+                    <div class="post-meta__icon">
+                        <img class="profile-pic" src="${post.author.image}" alt="Phil Mangione">                    
+                    </div>
+                    <div class="post-meta__data">
+                        <div class="post-meta__author">Phil Mangione</div>
+                        <div class="post-meta__time">4 mesi fa</div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="post__text">Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.</div>
+            <div class="post__image">
+                <img src="${post.media}" alt="">
+            </div>
+            <div class="post__footer">
+                <div class="likes js-likes">
+                    <div class="likes__cta">
+                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                            <span class="like-button__label">Mi Piace</span>
+                        </a>
+                    </div>
+                    <div class="likes__counter">
+                        Piace a <b id="like-counter-1" class="js-likes-counter">80</b> persone
+                    </div>
+                </div> 
+            </div>            
+        </div>`
+
+    console.log(post);
+    containerEl.innerHTML += template 
+});
+
