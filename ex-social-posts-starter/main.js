@@ -118,36 +118,38 @@ posts.forEach(post => {
 */
 
 
+
 // Aggiungi un event listener a ciascun pulsante "Mi Piace"
 const likeButtons = document.querySelectorAll('.js-like-button');
-
-const likedPosts = []; // Array per tenere traccia dei post piaciuti
 
 likeButtons.forEach(likeButton => {
     likeButton.addEventListener('click', function(e) {
         e.preventDefault();
 
-        // gestire il click sul pulsante "Mi Piace"
-        likeButton.classList.toggle('like-button--liked');
-
-        // Prendo l'ID del post dal pulsante "Mi Piace"
+        // Trova il post corrispondente nell'array "posts" usando l'ID
         const postId = parseInt(likeButton.getAttribute('data-postid'));
-
-        // collego il post corrispondente nell'array "posts"
         const post = posts.find(post => post.id === postId);
 
+        // Trova il contatore dei like e il testo del contatore nel DOM
+        const likeCounter = likeButton.closest('.likes').querySelector('.js-likes-counter');
+        const likeCounterText = likeCounter.textContent;
+        
+        // Estrai il numero di like attuale dal testo
+        const currentLikes = parseInt(likeCounterText);
+
+        // Verifica se il pulsante è stato premuto o meno
         if (likeButton.classList.contains('like-button--liked')) {
-            // Se il pulsante è cliccato, aggiungi il post ai post piaciuti
-            likedPosts.push(post);
+            // Se il pulsante è già stato premuto, rimuovi il "Mi Piace" e decrementa il contatore
+            likeButton.classList.remove('like-button--liked');
+            post.likes--;
         } else {
-            // Se il pulsante è cliccato di nuovo (non è più "Mi Piace"), rimuovi il post dai post piaciuti
-            const index = likedPosts.findIndex(likedPost => likedPost.id === postId);
-            if (index !== -1) {
-                likedPosts.splice(index, 1);
-            }
+            // Se il pulsante non è stato premuto, aggiungi il "Mi Piace" e incrementa il contatore
+            likeButton.classList.add('like-button--liked');
+            post.likes++;
         }
 
-        console.log('Post piaciuti:', likedPosts);
+        // Aggiorna il testo del contatore dei like nel DOM
+        likeCounter.textContent = `${post.likes}`;
     });
 });
 
